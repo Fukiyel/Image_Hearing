@@ -1,5 +1,6 @@
-from __future__ import print_function
 from PIL import Image
+from pyaudio import PyAudio
+import numpy as np
 
 
 def hilbert_path(level):
@@ -59,20 +60,17 @@ def hilbert_path(level):
 
 	return hilbert_curve
 
-hilbert_level = 2
+hilbert_level = 10
 path = hilbert_path(hilbert_level)
 
 
-im = Image.open("hue.png")
+im = Image.open("level-10.jpg")
 im = im.convert("HSV")
 
 hue, sat, val = [], [], []
 
-
 original_y = []
-for i in range(len(path)):
-	original_y.append(path[i][1])
-
+for i in range(len(path)): original_y.append(path[i][1])
 opposite_y = list(map(lambda x: max(original_y) - x, original_y))
 
 for i in path:
@@ -81,5 +79,6 @@ for i in path:
 	sat.append(im.getpixel(coords)[1])
 	val.append(im.getpixel(coords)[2])
 
-print(hue)
-print(path)
+
+pa = PyAudio()
+print("a")
